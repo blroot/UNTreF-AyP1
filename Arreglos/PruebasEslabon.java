@@ -20,12 +20,12 @@ public class PruebasEslabon {
 	
 	@Test(expected = Error.class)
 	public void crearUnEslabonConNumeroMenosUnoDaError () {
-		Eslabon eslabon = new Eslabon(-1, 8.0);
+		new Eslabon(-1, 8.0);
 	}
 	
 	@Test(expected = Error.class)
 	public void crearUnEslabonConLongitudCeroDaError () {
-		Eslabon eslabon = new Eslabon(2, 0.0);
+		new Eslabon(2, 0.0);
 	}
 	
 	@Test
