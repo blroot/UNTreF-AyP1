@@ -94,6 +94,89 @@ public class MapaDeHumedad {
 		
 		return humedadMinima;
 	}
+
+
+	public double calcularHumedadPromedioDelContorno() {		
+		int metrosCuadradosDelContorno = (this.largo * this.ancho) - ((this.largo - 2) * (this.ancho - 2));
+		double humedadTotalDelContorno = 0.0;
+		
+		for (int i = 0; i < this.largo; i++) {
+			for (int j = 0; j < this.ancho; j++) {
+				if (i == 0 || i == this.largo -1) {
+					humedadTotalDelContorno += this.mapaDeHumedad[i][j];
+				}
+				if (i != 0 && i != this.largo -1 && j != 0 && j != this.ancho -1) {
+					humedadTotalDelContorno += this.mapaDeHumedad[i][j];
+				}
+			}
+		}
+		
+		return humedadTotalDelContorno / metrosCuadradosDelContorno;
+	}
+
+
+	public int contarMuestrasEnRango(double principioDeRango, double finDeRango) {
+		int muestrasEnRango = 0;
+		
+		for (int i = 0; i < this.largo; i++) {
+			for (int j = 0; j < this.ancho; j++) {
+				if (this.mapaDeHumedad[i][j] >= principioDeRango 
+						&& this.mapaDeHumedad[i][j] <= finDeRango) {
+					muestrasEnRango++;
+				}
+			}
+		}
+		
+		return muestrasEnRango;
+	}
+
+
+	public void reemplazarMuestraPorPromedioDeContiguos(int fila, int columna) {
+		int cantidadDeContiguos = 0;
+		double[] muestrasContiguas = new double[8];
+		double sumaDeMuestrasContiguas = 0.0;
+		
+		
+		muestrasContiguas[0] = this.obtenerMuestraContigua(fila-1, columna-1);
+		muestrasContiguas[1] = this.obtenerMuestraContigua(fila-1, columna);
+		muestrasContiguas[2] = this.obtenerMuestraContigua(fila-1, columna+1);
+		muestrasContiguas[3] = this.obtenerMuestraContigua(fila, columna-1);
+		muestrasContiguas[4] = this.obtenerMuestraContigua(fila, columna+1);
+		muestrasContiguas[5] = this.obtenerMuestraContigua(fila+1, columna-1);
+		muestrasContiguas[6] = this.obtenerMuestraContigua(fila+1, columna);
+		muestrasContiguas[7] = this.obtenerMuestraContigua(fila+1, columna+1);
+		
+		
+		for (int i = 0; i < muestrasContiguas.length; i++) {
+			if (muestrasContiguas[i] != -1.0) {
+				cantidadDeContiguos++;
+				sumaDeMuestrasContiguas += muestrasContiguas[i];
+			}
+		}
+		
+		double porcentajeDeHumedad = sumaDeMuestrasContiguas / cantidadDeContiguos;
+		
+		this.almacenarMuestra(fila, columna, porcentajeDeHumedad);
+		
+	}
 	
+	private double obtenerMuestraContigua(int fila, int columna) {
+		double muestra = -1.0;
+		
+		if (this.validarMuestraContigua(fila, columna)) {
+			muestra = this.mapaDeHumedad[fila-1][columna-1];
+		}
+		
+		return muestra;
+	}
+	
+	
+	private boolean validarMuestraContigua(int fila, int columna) {
+		return fila < this.largo 
+				&& fila >= 1 
+				&& columna < this.ancho 
+				&& columna >= 1;
+	}
+		
 	
 }

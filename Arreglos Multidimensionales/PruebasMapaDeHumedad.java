@@ -176,5 +176,75 @@ public class PruebasMapaDeHumedad {
 		Assert.assertEquals(50.0, mapa.obtenerHumedadMinima(), 0);
 	}
 	
+	@Test
+	public void siHayHumedadAlNoventaPorcientoEnLaTotalidadDeUnoDeLosLadosHumedadPromedioDelContornoEsTreinta() {
+		MapaDeHumedad mapa = new MapaDeHumedad(4, 4);
+		
+		mapa.almacenarMuestra(1, 1, 90.0);
+		mapa.almacenarMuestra(1, 2, 90.0);
+		mapa.almacenarMuestra(1, 3, 90.0);
+		mapa.almacenarMuestra(1, 4, 90.0);
+		
+		Assert.assertEquals(30.0, mapa.calcularHumedadPromedioDelContorno(), 0);
+	}
+	
+	@Test
+	public void siHayHumedadEnTodoElContornoAlNoventaPorcientoHumedadPromedioDelContornoEsNoventa() {
+		MapaDeHumedad mapa = new MapaDeHumedad(4, 4);
+		
+		for (int i = 1; i < 5; i++) {
+			for (int j = 1; j < 5; j++) {
+				mapa.almacenarMuestra(i, j, 90.0);
+			}
+		}
+		
+		Assert.assertEquals(90.0, mapa.calcularHumedadPromedioDelContorno(), 0);
+	}
+	
+	@Test
+	public void siHayHumedadAlCincuentaPorcientoEnTodoElTerrenoDeDosPorDosCantidadDeMuestrasEntreCeroYCincuentaSonDieciseis() {
+		MapaDeHumedad mapa = new MapaDeHumedad(4, 4);
+		
+		for (int i = 1; i < 5; i++) {
+			for (int j = 1; j < 5; j++) {
+				mapa.almacenarMuestra(i, j, 50.0);
+			}
+		}
+		
+		Assert.assertEquals(16, mapa.contarMuestrasEnRango(0.0, 50.0));
+	}
+	
+	@Test
+	public void siHayHumedadAlCincuentaPorcientoEnlasDosPrimerasFilasDelTerrenoDeDosPorDosCantidadDeMuestrasEntreUnoYCincuentaSonOcho() {
+		MapaDeHumedad mapa = new MapaDeHumedad(4, 4);
+		
+		for (int i = 1; i < 3; i++) {
+			for (int j = 1; j < 5; j++) {
+				mapa.almacenarMuestra(i, j, 50.0);
+			}
+		}
+		
+		Assert.assertEquals(8, mapa.contarMuestrasEnRango(1.0, 50.0));
+	}
+	
+	@Test
+	public void siUnaMuestraTieneComoContiguosTreintaPorcientoAlReemplazarElValorPorElPromedioDeSusContiguosEsTreinta() {
+		MapaDeHumedad mapa = new MapaDeHumedad(4, 4);
+		
+		mapa.almacenarMuestra(1, 1, 30.0);
+		mapa.almacenarMuestra(1, 2, 30.0);
+		mapa.almacenarMuestra(1, 3, 30.0);
+		mapa.almacenarMuestra(2, 1, 30.0);
+		mapa.almacenarMuestra(2, 3, 30.0);
+		mapa.almacenarMuestra(3, 1, 30.0);
+		mapa.almacenarMuestra(3, 2, 30.0);
+		mapa.almacenarMuestra(3, 3, 30.0);
+		
+		mapa.reemplazarMuestraPorPromedioDeContiguos(2, 2);
+
+		Assert.assertEquals(30.0, mapa.obtenerMuestra(2, 2), 0);
+	}
+	
+	
 	
 }

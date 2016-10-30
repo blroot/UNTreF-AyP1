@@ -83,5 +83,55 @@ public class Matriz {
 		return matrizResultante;
 		
 	}
+
+	public boolean esDiagonal() {
+		boolean esDiagonal = true;
+		
+		for (int i = 0; i < this.filas && esDiagonal; i++) {
+			for (int j = 0; j < this.columnas && esDiagonal; j++) {
+				if (i == j && this.matriz[i][j] == 0 
+						|| i != j && this.matriz[i][j] != 0) {
+					esDiagonal = false;
+				}
+			}
+			
+		}
+		
+		return esDiagonal;
+	}
+
+	public boolean esTriangularInferior() {
+		boolean esTriangularInferior = true;
+		
+		for (int i = 0; i < this.filas && esTriangularInferior; i++) {
+			for (int j = 0; j < this.columnas && esTriangularInferior; j++) {
+				if (i == j && this.matriz[i][j] == 0 
+						|| i > j && this.matriz[i][j] == 0
+						|| i < j && this.matriz[i][j] != 0){
+					esTriangularInferior = false;
+				}
+			}
+			
+		}
+		
+		return esTriangularInferior;
+	}
+
+	public boolean esTriangularSuperior() {
+		boolean esTriangularSuperior = true;
+		
+		for (int i = 0; i < this.filas && esTriangularSuperior; i++) {
+			for (int j = 0; j < this.columnas && esTriangularSuperior; j++) {
+				if (i == j && this.matriz[i][j] == 0 
+						|| i < j && this.matriz[i][j] == 0
+						|| i > j && this.matriz[i][j] != 0){
+					esTriangularSuperior = false;
+				}
+			}
+			
+		}
+		
+		return esTriangularSuperior;
+	}
 	
 }

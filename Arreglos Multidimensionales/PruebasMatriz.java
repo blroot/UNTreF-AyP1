@@ -141,4 +141,78 @@ public class PruebasMatriz {
 		
 	}
 	
+	@Test
+	public void unaMatrizIdentidadEsDiagonal() {
+		int[][] matrizIdentidad = {{1,0},{0,1}};
+			
+		Matriz matriz = new Matriz(matrizIdentidad);
+		
+		Assert.assertTrue(matriz.esDiagonal());		
+	}
+	
+	@Test
+	public void unaMatrizTriangularNoEsDiagonal() {
+		int[][] matrizTriangular = {{1,0,0,0,0}
+								   ,{1,1,0,0,0}
+								   ,{1,1,1,0,0}
+								   ,{7,5,8,1,0}
+								   ,{2,3,5,8,1}};
+			
+		Matriz matriz = new Matriz(matrizTriangular);
+		
+		Assert.assertFalse(matriz.esDiagonal());		
+	}
+	
+	@Test
+	public void unaMatrizTriangularInferiorEsTriangularInferior() {
+		int[][] matrizTriangular = {{1,0,0,0,0}
+								   ,{1,1,0,0,0}
+								   ,{1,1,1,0,0}
+								   ,{7,5,8,1,0}
+								   ,{2,3,5,8,1}};
+			
+		Matriz matriz = new Matriz(matrizTriangular);
+		
+		Assert.assertTrue(matriz.esTriangularInferior());		
+	}
+	
+	@Test
+	public void unaMatrizNoTriangularInferiorNoEsTriangularInferior() {
+		int[][] matrizTriangular = {{1,0,0,0,5}
+								   ,{1,1,0,0,0}
+								   ,{1,1,1,0,0}
+								   ,{7,5,8,1,0}
+								   ,{2,3,5,8,1}};
+			
+		Matriz matriz = new Matriz(matrizTriangular);
+		
+		Assert.assertFalse(matriz.esTriangularInferior());		
+	}
+	
+	@Test
+	public void unaMatrizTriangularSuperiorEsTriangularSuperior() {
+		int[][] matrizTriangular = {{1,5,4,8,10}
+								   ,{0,1,25,14,2}
+								   ,{0,0,1,3,2}
+								   ,{0,0,0,1,7}
+								   ,{0,0,0,0,1}};
+			
+		Matriz matriz = new Matriz(matrizTriangular);
+		
+		Assert.assertTrue(matriz.esTriangularSuperior());		
+	}
+	
+	@Test
+	public void unaMatrizNoTriangularSuperiorNoEsTriangularSuperior() {
+		int[][] matrizTriangular = {{1,5,4,8,10}
+								   ,{0,1,25,14,2}
+								   ,{0,0,1,3,2}
+								   ,{20,3,0,1,7}
+								   ,{4,0,0,0,1}};
+			
+		Matriz matriz = new Matriz(matrizTriangular);
+		
+		Assert.assertFalse(matriz.esTriangularSuperior());		
+	}
+	
 }
