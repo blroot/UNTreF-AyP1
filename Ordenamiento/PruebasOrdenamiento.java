@@ -64,4 +64,34 @@ public class PruebasOrdenamiento {
 		Assert.assertArrayEquals(arrayEsperado, ordenador.ordenar(array));
 	}
 	
+	@Test
+	public void pruebaConArrayDesordenadoInsercion() {
+		int[] array = { 54, 25, 86, 12, 65, 76, 1, 68, 76, 87 };
+		int[] arrayEsperado = {1, 12, 25, 54, 65, 68, 76, 76, 86, 87};
+		
+		OrdenadorPorInsercion ordenador = new OrdenadorPorInsercion();
+		
+		Assert.assertArrayEquals(arrayEsperado, ordenador.ordenar(array));
+	}
+	
+	@Test
+	public void pruebaConArrayOrdenadoInsercion() {
+		int[] array = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+		int[] arrayEsperado = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+		
+		OrdenadorPorInsercion ordenador = new OrdenadorPorInsercion();
+		
+		Assert.assertArrayEquals(arrayEsperado, ordenador.ordenar(array));
+	}
+	
+	@Test
+	public void pruebaConArrayOrdenadoDeMayorAMenorInsercion() {
+		int[] array = { 10, 9, 8, 7, 6, 5, 4, 3, 2, 1 };
+		int[] arrayEsperado = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+		
+		OrdenadorPorInsercion ordenador = new OrdenadorPorInsercion();
+		
+		Assert.assertArrayEquals(arrayEsperado, ordenador.ordenar(array));
+	}
+	
 }
